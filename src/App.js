@@ -12,10 +12,10 @@ function App() {
     
   return (
     <div className='App'>
-      {/*<File/>*/}
+      <File/>
       {/*<Dropdown selectedDate={selectedDateHandler}/>*/}
       {/*{selectedDate && <Weather date={selectedDate}/>}*/}
-      <Weather/>
+      {/*<Weather/>*/}
     </div>
   );
 }

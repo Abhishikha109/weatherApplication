@@ -1,4 +1,4 @@
-const HourlyWeatherReport = () => {
+const HourlyWeatherReport = (props) => {
   return <>
     <p>Hourly Report</p>
   </> 
