@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import File from './components/File';
+import Dropdown from './components/Dropdown';
+import Weather from './components/weather';
+import {useState} from 'react';
 
 function App() {
+  const [selectedDate, setSelectedDate] = useState(null);
+  const selectedDateHandler = (date) => {
+    setSelectedDate(date);
+  };
+    
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      {/*<File/>*/}
+      {/*<Dropdown selectedDate={selectedDateHandler}/>*/}
+      {/*{selectedDate && <Weather date={selectedDate}/>}*/}
+      <Weather/>
     </div>
   );
 }
