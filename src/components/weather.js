@@ -15,7 +15,7 @@ const Weather = (props) => {
   const temperatureChange = useContext(WeatherDataContext);
   
   const celsiusToFahrenheit = (cTemp) => {
-    return cTemp * 9 / 5 + 32;
+    return Math.round(cTemp * 9 / 5 + 32);
   };
 
   const toFahrenheitHandler = () => {

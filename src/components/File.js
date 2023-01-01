@@ -1,9 +1,12 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Weather from './weather';
 import {Days} from './Days';
+import WeatherDataContext from '../store/weather-data-context';
+
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
   const [weatherReport, setWeatherReport] = useState({address: '', days: [], currentConditions: {}});
+  const weatherData = useContext(WeatherDataContext);
   
   const getLocation = (() => {
     if (navigator.geolocation) {
@@ -29,6 +32,8 @@ const File = () => {
       fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Busan?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
         .then(response => response.json())
         .then((responseData) => {
+          weatherData.setAllDays(responseData.days);
+          weatherData.setCurrentDayCondition(responseData.currentConditions);
           setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: responseData.currentConditions});
         })
         .catch(err => {

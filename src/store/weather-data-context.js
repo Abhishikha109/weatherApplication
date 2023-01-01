@@ -1,29 +1,38 @@
 import {createContext, useState} from 'react';
 
 const WeatherDataContext = createContext({
-  dates: [],
-  setAllDates: () => {},
+  days: [],
+  setAllDays: () => {},
   temperatureChange: true,
   temperatureConversionToggle: () => {},
+  currentDayCondition: {},
+  setCurrentDayCondition: () => {},
 });
 
 export const WeatherDataContextProvider = (props) => {
-  const [weatherDates, setWeatherDates] = useState([]);
+  const [weatherDays, setWeatherDays] = useState([]);
   const [temperatureToggle, setTemperatureToggle] = useState(true);
+  const [currentWeather, setCurrentWeather] = useState({});
 
-  const setDatesHandler = (allDates) => {
-    setWeatherDates(allDates);
+  const setDaysHandler = (allDays) => {
+    setWeatherDays(allDays);
+  };
+
+  const setCurrentDayConditionHandler = (currentDayWeatherCondition) => {
+    setCurrentWeather({...currentDayWeatherCondition});
   };
   
   const setTemperatureToggleHandler = (value) => {
     setTemperatureToggle(value);
   }
-    
+  
   const contextValue = {
-    dates: weatherDates, 
-    setAllDates: setDatesHandler,
+    days: weatherDays, 
+    setAllDays: setDaysHandler,
     temperatureChange: temperatureToggle,
     temperatureConversionToggle: setTemperatureToggleHandler,
+    currentDayCondition: currentWeather,
+    setCurrentDayCondition: setCurrentDayConditionHandler,
   }
 
   return (

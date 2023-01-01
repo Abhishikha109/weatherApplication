@@ -4,18 +4,18 @@ import React, {useContext} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
 
 const Day = (props) => {
-  const temperatureChange = useContext(WeatherDataContext);
-
+  const weatherData = useContext(WeatherDataContext);
+  
   const celsiusToFahrenheit = (cTemp) => {
-    return cTemp * 9 / 5 + 32;
+    return Math.round(cTemp * 9 / 5 + 32);
   };
   
   return (<table>
     <tbody>
-      <tr>{props.eachDay.datetime}</tr>
+      <tr>{props.weekDay}</tr>
       <tr>{WeatherIcon(props.eachDay.icon)}</tr>
       <tr>
-        {temperatureChange.temperatureChange? <h6>{props.eachDay.temp}
+        {weatherData.temperatureChange? <h6>{props.eachDay.temp}
           <TbTemperatureCelsius style={{color: 'blue'}}/> | <TbTemperatureFahrenheit /></h6> :
           <h6>{celsiusToFahrenheit(props.eachDay.temp)}
             <TbTemperatureCelsius /> | <TbTemperatureFahrenheit style={{color: 'blue'}}/></h6>}
