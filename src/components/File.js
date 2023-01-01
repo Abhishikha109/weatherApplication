@@ -1,7 +1,6 @@
-import {useEffect, useState, useCallback} from 'react';
-import Dropdown from './Dropdown';
-import {CLEAR_DAY_IMG, CLEAR_NIGHT_IMG, CLOUDY_IMG, PARTLY_CLOUDY_DAY, PARTLY_CLOUDY_NIGHT} from '../constants/Urls';
-import HourlyWeatherReport from './HourlyWeatherReport';
+import {useEffect, useState} from 'react';
+import Weather from './weather';
+import {Days} from './Days';
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
   const [weatherReport, setWeatherReport] = useState({address: '', days: [], currentConditions: {}});
@@ -26,7 +25,8 @@ const File = () => {
   
   const getData = () => {
     if(currentCity){
-      fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${currentCity}?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json`)
+      // TODO: hardcoded Busan
+      fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Busan?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
         .then(response => response.json())
         .then((responseData) => {
           setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: responseData.currentConditions});
@@ -45,16 +45,10 @@ const File = () => {
     getData();
   }, [currentCity]);
   
-  return <>
-    {/*<img src={CLOUDY_IMG} alt="cloudy"/><br/>*/}
-    {/*<img src={CLEAR_DAY_IMG} alt="clear-day"/><br/>*/}
-    {/*<img src={CLEAR_NIGHT_IMG} height='35' width='35' alt="clear-night" /><br/>*/}
-    {/*<img src={PARTLY_CLOUDY_NIGHT} height='35' width='44' alt="partly-cloudy-night"/><br/>*/}
-    {/*<img src={PARTLY_CLOUDY_DAY} alt="partly-cloudy-day"/><br/>*/}
-    <p>{currentCity}</p>
-    <p>{weatherReport.address}</p>
-    <HourlyWeatherReport cityAddress={weatherReport.address} days={weatherReport.days} todayWeather={weatherReport.currentConditions}/>
-  </>
+  return <div>
+    <Weather cityAddress={weatherReport.address} todayWeather={weatherReport.currentConditions}/>
+    <Days days={weatherReport.days} />
+  </div>
 };
 
 export default File;

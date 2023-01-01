@@ -11,12 +11,30 @@
     transform: translate(-50%, -50%);
 }
 
-.textBlock {
+.textBlockRight {
     position: absolute;
-    bottom: 40%;
-    right: 40%;
+    bottom: 75%;
+    right: 6%;
     background: none;
     color: white;
     padding-left: 20%;
     padding-right: 20%;
+    line-height: 8px;
+}
+
+.textBlockLeft {
+    position: absolute;
+    bottom: 70%;
+    left: 25%;
+    background: none;
+    color: white;
+    line-height: 1px;
+}
+
+.icon {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 400px;
+    font-size: 30px;
 }
