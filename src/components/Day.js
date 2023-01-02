@@ -15,19 +15,21 @@ const Day = (props) => {
     const selectedDate = props.eachDay.datetime;
 
     for(let day in allDays){
-      if(selectedDate === allDays.at(day - 0).datetime){
-        const abc = {
-          date: allDays.at(day - 0).datetime,
-          conditions: allDays.at(day - 0).conditions,
+      const selectedDay = allDays.at(day - 0);
+      if(selectedDate === selectedDay.datetime){
+        const currentWeatherData = {
+          date: selectedDay.datetime,
+          conditions: selectedDay.conditions,
           day: props.weekDay,
-          icon: allDays.at(day - 0).icon,
-          temp: allDays.at(day - 0).temp,
-          humidity: allDays.at(day - 0).humidity,
-          windspeed: allDays.at(day - 0).windspeed,
-          sunrise: allDays.at(day - 0).sunrise,
-          sunset: allDays.at(day - 0).sunset,
+          icon: selectedDay.icon,
+          temp: selectedDay.temp,
+          humidity: selectedDay.humidity,
+          windspeed: selectedDay.windspeed,
+          sunrise: selectedDay.sunrise,
+          sunset: selectedDay.sunset,
         }
-        weatherData.setCurrentDataSelected(abc);
+        weatherData.setCurrentDataSelected(currentWeatherData);
+        break;
       }
     }
   };

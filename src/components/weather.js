@@ -10,10 +10,19 @@ import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
 
 const Weather = (props) => {
+  const weekDays = {'Sun':'Sun', 'Mon':'Mon', 'Tue':'Tues', 'Wed':'Wednes', 'Thu':'Thurs', 'Fri':'Fri', 'Sat':'Satur'};
   const [currentTime, setCurrentTime] = useState({date: '', day: '', hours: 0});
   const [bgGif, setBGGif] = useState(undefined); 
   const temperatureChange = useContext(WeatherDataContext);
   const selectedWeatherData = temperatureChange.currentDataSelected;
+  const actualDay = selectedWeatherData.day;
+
+  for (const [key, value] of Object.entries(weekDays)) {
+    if(key === actualDay){
+      selectedWeatherData.day = value;
+      break;
+    }
+  }
   
   const celsiusToFahrenheit = (cTemp) => {
     return Math.round(cTemp * 9 / 5 + 32);
