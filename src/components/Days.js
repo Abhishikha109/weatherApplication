@@ -14,7 +14,7 @@ export const Days = (props) => {
   
   return (<table>
     <tbody>
-      <tr>{props.days.slice(0, numberOfDays).map((day, index) => <th key={day}><Day eachDay={day} weekDay={nextSevenDays.at(index)}/></th>)}</tr>
+      <tr>{props.days.slice(0, numberOfDays).map((day, index) => <th key={day.datetime}><Day eachDay={day} weekDay={nextSevenDays.at(index)}/></th>)}</tr>
     </tbody>
   </table>
   );

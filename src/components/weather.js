@@ -68,17 +68,19 @@ const Weather = (props) => {
         <h4>{selectedWeatherData.day + 'day'}</h4>
       </div>
       <table className={classes.textBlockLeft}>
-        <tr>
-          <th>{WeatherIcon(selectedWeatherData.icon)}</th>
-          <th>          {temperatureChange.temperatureChange? <h1>{selectedWeatherData.temp}
-            <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer', color: 'blue'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer'}}/></h1> :
-            <h1>{celsiusToFahrenheit(selectedWeatherData.temp)}
-              <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer', color: 'blue'}}/></h1>}</th>
-          <th>          <p><WiHumidity/>{selectedWeatherData.humidity} %</p>
-            <p><BsWind/> {selectedWeatherData.windspeed} km/hr</p>
-            <p><RiSunFill/> {selectedWeatherData.sunrise} am</p>
-            <p><IoIosMoon/> {selectedWeatherData.sunset} pm</p></th>
-        </tr>
+        <tbody>
+          <tr>
+            <th>{WeatherIcon(selectedWeatherData.icon)}</th>
+            <th>          {temperatureChange.temperatureChange? <h1>{selectedWeatherData.temp}
+              <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer', color: 'blue'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer'}}/></h1> :
+              <h1>{celsiusToFahrenheit(selectedWeatherData.temp)}
+                <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer', color: 'blue'}}/></h1>}</th>
+            <th>          <p><WiHumidity/>{selectedWeatherData.humidity} %</p>
+              <p><BsWind/> {selectedWeatherData.windspeed} km/hr</p>
+              <p><RiSunFill/> {selectedWeatherData.sunrise} am</p>
+              <p><IoIosMoon/> {selectedWeatherData.sunset} pm</p></th>
+          </tr>
+        </tbody>
       </table>
     </div>
   </>
