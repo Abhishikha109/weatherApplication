@@ -8,3 +8,4 @@ export const CLEAR_DAY_IMG= 'https://ssl.gstatic.com/onebox/weather/48/sunny.png
 export const CLEAR_NIGHT_IMG= 'https://static.vecteezy.com/system/resources/thumbnails/013/250/772/small_2x/clear-night-3d-rendering-isometric-icon-png.png';
 export const PARTLY_CLOUDY_NIGHT= 'https://www.nicepng.com/png/full/877-8774016_big-image-full-moon-with-clouds-drawings.png';
 export const PARTLY_CLOUDY_DAY= 'https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png';
+export const RAIN = 'https://ssl.gstatic.com/onebox/weather/48/rain_light.png';

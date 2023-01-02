@@ -1,11 +1,9 @@
 import Day from './Day';
+import {days, getCurrentDay} from '../utils/getDayFromDate';
+import {numberOfDays} from '../utils/getDayFromDate'; 
 
 export const Days = (props) => {
-  const numberOfDays = 8;
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  
-  const todayDay = Date().toLocaleString().substr(0,4).trim();
-  const index = days.indexOf(todayDay, 0);
+  const index = getCurrentDay(props.days?.at(0)?.datetime);
   
   let nextSevenDays = [];
   for (let i = index; i < index+numberOfDays; i++) {

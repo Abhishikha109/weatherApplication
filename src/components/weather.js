@@ -8,12 +8,10 @@ import {WeatherIcon} from '../utils/WeatherIcon';
 import {DayImageChange} from '../utils/DayImageChange';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
+import {weekDays, months} from '../utils/getDayFromDate';
 
 const Weather = (props) => {
-  const weekDays = {'Sun':'Sun', 'Mon':'Mon', 'Tue':'Tues', 'Wed':'Wednes', 'Thu':'Thurs', 'Fri':'Fri', 'Sat':'Satur'};
-  const months = {'01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'May', '06':'Jun',
-    '07':'Jul', '08':'Aug', '09':'Sep', '10':'Oct', '11':'Nov', '12':'Dec'};
-  const [currentTime, setCurrentTime] = useState({date: '', day: '', hours: 0});
+  const [currentTime, setCurrentTime] = useState({hours: 0});
   const [bgGif, setBGGif] = useState(undefined); 
   const temperatureChange = useContext(WeatherDataContext);
   const selectedWeatherData = JSON.stringify(temperatureChange.currentDataSelected) === '{}' ? props.todayWeather : temperatureChange.currentDataSelected;
@@ -47,10 +45,7 @@ const Weather = (props) => {
   };
   
   const timing = () => {
-    const currentDay = Date().toLocaleString();
-    const date = new Date();
-    const totalHours = date.getHours();
-    setCurrentTime({date: currentDay.substr(4,11), day: currentDay.substr(0,4), hours: totalHours});
+    setCurrentTime({hours: selectedWeatherData.hours});
   };
   
   useEffect(() => {

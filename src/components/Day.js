@@ -2,13 +2,10 @@ import {WeatherIcon} from '../utils/WeatherIcon';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import React, {useContext} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
+import {celsiusToFahrenheit} from '../utils/getDayFromDate';
 
 const Day = (props) => {
   const weatherData = useContext(WeatherDataContext);
-  
-  const celsiusToFahrenheit = (cTemp) => {
-    return Math.round(cTemp * 9 / 5 + 32);
-  };
   
   const dailyDataHandler = () => {
     const allDays = weatherData.days;

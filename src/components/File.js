@@ -1,13 +1,14 @@
 import {useContext, useEffect, useState} from 'react';
 import Weather from './weather';
 import {Days} from './Days';
+import {days, getCurrentDay} from '../utils/getDayFromDate';
 import WeatherDataContext from '../store/weather-data-context';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
   const [weatherReport, setWeatherReport] = useState({address: '', days: [], currentConditions: {}});
   const weatherData = useContext(WeatherDataContext);
-  
+
   const getLocation = (() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition((position) => {
@@ -28,15 +29,14 @@ const File = () => {
   
   const getData = () => {
     if(currentCity){
-      fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${currentCity}?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json`)
+      fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/New York?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
         .then(response => response.json())
         .then((responseData) => {
           weatherData.setAllDays(responseData.days);
           weatherData.setCurrentDayCondition(responseData.currentConditions);
-          const currentDay = Date().toLocaleString();
           setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: {
             date:responseData.days.at(0).datetime,
-            day: currentDay.substr(0,3),
+            day: days.at(getCurrentDay(responseData.days.at(0).datetime)),
             conditions:responseData.days.at(0).conditions,
             icon:responseData.days.at(0).icon,
             temp:responseData.days.at(0).temp,
@@ -44,6 +44,7 @@ const File = () => {
             windspeed:responseData.days.at(0).windspeed,
             sunrise:responseData.days.at(0).sunrise,
             sunset:responseData.days.at(0).sunset,
+            hours:responseData.currentConditions.datetime.substr(0,3) - '0',
           }});
         })
         .catch(err => {
