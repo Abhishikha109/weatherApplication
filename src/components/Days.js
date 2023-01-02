@@ -12,7 +12,6 @@ export const Days = (props) => {
     nextSevenDays.push(days.at(i%(numberOfDays-1)));
   }
   
-  console.log(index);
   return (<table>
     <tbody>
       <tr>{props.days.slice(0, numberOfDays).map((day, index) => <th key={day}><Day eachDay={day} weekDay={nextSevenDays.at(index)}/></th>)}</tr>

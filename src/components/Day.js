@@ -10,7 +10,29 @@ const Day = (props) => {
     return Math.round(cTemp * 9 / 5 + 32);
   };
   
-  return (<table>
+  const dailyDataHandler = () => {
+    const allDays = weatherData.days;
+    const selectedDate = props.eachDay.datetime;
+
+    for(let day in allDays){
+      if(selectedDate === allDays.at(day - 0).datetime){
+        const abc = {
+          date: allDays.at(day - 0).datetime,
+          conditions: allDays.at(day - 0).conditions,
+          day: props.weekDay,
+          icon: allDays.at(day - 0).icon,
+          temp: allDays.at(day - 0).temp,
+          humidity: allDays.at(day - 0).humidity,
+          windspeed: allDays.at(day - 0).windspeed,
+          sunrise: allDays.at(day - 0).sunrise,
+          sunset: allDays.at(day - 0).sunset,
+        }
+        weatherData.setCurrentDataSelected(abc);
+      }
+    }
+  };
+  
+  return (<table onClick={dailyDataHandler} style={{cursor: 'pointer'}}>
     <tbody>
       <tr>{props.weekDay}</tr>
       <tr>{WeatherIcon(props.eachDay.icon)}</tr>

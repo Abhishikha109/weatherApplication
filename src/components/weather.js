@@ -13,6 +13,7 @@ const Weather = (props) => {
   const [currentTime, setCurrentTime] = useState({date: '', day: '', hours: 0});
   const [bgGif, setBGGif] = useState(undefined); 
   const temperatureChange = useContext(WeatherDataContext);
+  const selectedWeatherData = temperatureChange.currentDataSelected;
   
   const celsiusToFahrenheit = (cTemp) => {
     return Math.round(cTemp * 9 / 5 + 32);
@@ -43,20 +44,21 @@ const Weather = (props) => {
       {bgGif}
       <div className={classes.textBlockRight}>
         <h2>{props.cityAddress}</h2>
-        <h4>{currentTime.date}</h4>
-        <h4>{currentTime.day.trim() + 'day'}</h4>
+        <h4>{selectedWeatherData.date}</h4>
+        <h4>{selectedWeatherData.conditions}</h4>
+        <h4>{selectedWeatherData.day + 'day'}</h4>
       </div>
       <table className={classes.textBlockLeft}>
         <tr>
-          <th>{WeatherIcon(props.todayWeather.icon)}</th>
-          <th>          {temperatureChange.temperatureChange? <h1>{props.todayWeather.temp}
+          <th>{WeatherIcon(selectedWeatherData.icon)}</th>
+          <th>          {temperatureChange.temperatureChange? <h1>{selectedWeatherData.temp}
             <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer', color: 'blue'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer'}}/></h1> :
-            <h1>{celsiusToFahrenheit(props.todayWeather.temp)}
+            <h1>{celsiusToFahrenheit(selectedWeatherData.temp)}
               <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer', color: 'blue'}}/></h1>}</th>
-          <th>          <p><WiHumidity/>{props.todayWeather.humidity} %</p>
-            <p><BsWind/> {props.todayWeather.windspeed} km/hr</p>
-            <p><RiSunFill/> {props.todayWeather.sunrise} am</p>
-            <p><IoIosMoon/> {props.todayWeather.sunset} pm</p></th>
+          <th>          <p><WiHumidity/>{selectedWeatherData.humidity} %</p>
+            <p><BsWind/> {selectedWeatherData.windspeed} km/hr</p>
+            <p><RiSunFill/> {selectedWeatherData.sunrise} am</p>
+            <p><IoIosMoon/> {selectedWeatherData.sunset} pm</p></th>
         </tr>
       </table>
     </div>
