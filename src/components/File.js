@@ -33,7 +33,18 @@ const File = () => {
         .then((responseData) => {
           weatherData.setAllDays(responseData.days);
           weatherData.setCurrentDayCondition(responseData.currentConditions);
-          setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: responseData.currentConditions});
+          const currentDay = Date().toLocaleString();
+          setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: {
+            date:responseData.days.at(0).datetime,
+            day: currentDay.substr(0,3),
+            conditions:responseData.days.at(0).conditions,
+            icon:responseData.days.at(0).icon,
+            temp:responseData.days.at(0).temp,
+            humidity:responseData.days.at(0).humidity,
+            windspeed:responseData.days.at(0).windspeed,
+            sunrise:responseData.days.at(0).sunrise,
+            sunset:responseData.days.at(0).sunset,
+          }});
         })
         .catch(err => {
           console.error(err);

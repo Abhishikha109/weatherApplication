@@ -11,11 +11,14 @@ import WeatherDataContext from '../store/weather-data-context';
 
 const Weather = (props) => {
   const weekDays = {'Sun':'Sun', 'Mon':'Mon', 'Tue':'Tues', 'Wed':'Wednes', 'Thu':'Thurs', 'Fri':'Fri', 'Sat':'Satur'};
+  const months = {'01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'May', '06':'Jun',
+    '07':'Jul', '08':'Aug', '09':'Sep', '10':'Oct', '11':'Nov', '12':'Dec'};
   const [currentTime, setCurrentTime] = useState({date: '', day: '', hours: 0});
   const [bgGif, setBGGif] = useState(undefined); 
   const temperatureChange = useContext(WeatherDataContext);
-  const selectedWeatherData = temperatureChange.currentDataSelected;
+  const selectedWeatherData = JSON.stringify(temperatureChange.currentDataSelected) === '{}' ? props.todayWeather : temperatureChange.currentDataSelected;
   const actualDay = selectedWeatherData.day;
+  let month = '';
 
   for (const [key, value] of Object.entries(weekDays)) {
     if(key === actualDay){
@@ -23,7 +26,14 @@ const Weather = (props) => {
       break;
     }
   }
-  
+
+  for (const [key, value] of Object.entries(months)) {
+    if(key === selectedWeatherData.date?.substr(5).substr(0,2)){
+      month = value;
+      break;
+    }
+  }
+
   const celsiusToFahrenheit = (cTemp) => {
     return Math.round(cTemp * 9 / 5 + 32);
   };
@@ -53,7 +63,7 @@ const Weather = (props) => {
       {bgGif}
       <div className={classes.textBlockRight}>
         <h2>{props.cityAddress}</h2>
-        <h4>{selectedWeatherData.date}</h4>
+        <h4>{month + ' ' +selectedWeatherData.date?.substr(8,10) + ', ' + selectedWeatherData.date?.substr(0,4)}</h4>
         <h4>{selectedWeatherData.conditions}</h4>
         <h4>{selectedWeatherData.day + 'day'}</h4>
       </div>
