@@ -9,6 +9,7 @@ import {DayImageChange} from '../utils/DayImageChange';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
 import {weekDays, months} from '../utils/getDayFromDate';
+import LineChart from './LineChart';
 
 const Weather = (props) => {
   const [currentTime, setCurrentTime] = useState({hours: 0});
@@ -75,6 +76,14 @@ const Weather = (props) => {
             <p><IoIosMoon/> {selectedWeatherData.sunset} pm</p></th>
         </tr>
       </tbody>
+    </table>
+    
+    <table>
+      <tr>
+        <td className={classes.box}>
+          <LineChart/>
+        </td>
+      </tr>
     </table>
   </>
 };

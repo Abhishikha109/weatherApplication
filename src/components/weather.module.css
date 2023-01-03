@@ -13,8 +13,8 @@
 
 .textBlockRight {
     position: absolute;
-    bottom: 75%;
-    right: 6%;
+    bottom: 80%;
+    right: 7%;
     background: none;
     color: white;
     padding-left: 20%;
@@ -24,12 +24,22 @@
 
 .textBlockLeft {
     position: absolute;
-    bottom: 70%;
-    left: 25%;
+    bottom: 80%;
+    left: 3%;
     background: none;
     color: white;
     line-height: 1px;
 }
+
+.box {
+    position: absolute;
+    width: 86%;
+    height: 150px;
+    left: -2%;
+    padding-right: -50%;
+    bottom: 16%;
+}
+
 
 .icon {
     display: flex;

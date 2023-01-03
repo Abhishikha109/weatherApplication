@@ -35,7 +35,8 @@ const Day = (props) => {
     <tbody>
       <tr><td>{props.weekDay}</td></tr>
       <tr><td>{WeatherIcon(props.eachDay.icon)}</td></tr>
-      <tr>{weatherData.temperatureChange? <td><h6>{props.eachDay.temp} <TbTemperatureCelsius style={{color: 'blue'}}/> | <TbTemperatureFahrenheit /></h6></td> :
+      <tr>{weatherData.temperatureChange?
+        <td><h6>{props.eachDay.temp} <TbTemperatureCelsius style={{color: 'blue'}}/> | <TbTemperatureFahrenheit /></h6></td> :
         <td><h6>{celsiusToFahrenheit(props.eachDay.temp)} <TbTemperatureCelsius /> | <TbTemperatureFahrenheit style={{color: 'blue'}}/></h6></td>}
       </tr>
     </tbody>
