@@ -3,6 +3,7 @@ import Weather from './weather';
 import {Days} from './Days';
 import {days, getCurrentDay} from '../utils/getDayFromDate';
 import WeatherDataContext from '../store/weather-data-context';
+import classes from './File.module.css';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
@@ -29,7 +30,7 @@ const File = () => {
   
   const getData = () => {
     if(currentCity){
-      fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/New York?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
+      fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lucknow?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
         .then(response => response.json())
         .then((responseData) => {
           weatherData.setAllDays(responseData.days);
@@ -61,9 +62,17 @@ const File = () => {
     getData();
   }, [currentCity]);
   
-  return <div>
-    <Weather cityAddress={weatherReport.address} todayWeather={weatherReport.currentConditions}/>
-    <Days days={weatherReport.days} />
+  return <div className={classes.container}>
+    <table>
+      <tbody>
+        <tr>
+          <td><Weather cityAddress={weatherReport.address} todayWeather={weatherReport.currentConditions}/></td>
+        </tr>
+        <tr>
+          <td><Days days={weatherReport.days} /></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 };
 

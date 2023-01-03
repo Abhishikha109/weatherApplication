@@ -2,4 +2,7 @@
     position: relative;
     text-align: center;
     color: white;
+    display: flex;
+    align-items: center;
+    margin: 5% 10% 10% 24%;
 }

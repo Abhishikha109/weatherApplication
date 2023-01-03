@@ -31,7 +31,7 @@ const Day = (props) => {
     }
   };
   
-  return (<table onClick={dailyDataHandler} style={{cursor: 'pointer'}}>
+  return (<table onClick={dailyDataHandler} style={{cursor: 'pointer', border: '5px solid blue', borderRadius: '20px', margin: '10px 10px 0px 10px', padding: '0 12px'}}>
     <tbody>
       <tr><td>{props.weekDay}</td></tr>
       <tr><td>{WeatherIcon(props.eachDay.icon)}</td></tr>
