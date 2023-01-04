@@ -10,6 +10,7 @@ import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
 import {weekDays, months} from '../utils/getDayFromDate';
 import LineChart from './LineChart';
+import {celsiusToFahrenheit} from '../utils/getDayFromDate';
 
 const Weather = (props) => {
   const [currentTime, setCurrentTime] = useState({hours: 0});
@@ -32,10 +33,6 @@ const Weather = (props) => {
       break;
     }
   }
-
-  const celsiusToFahrenheit = (cTemp) => {
-    return Math.round(cTemp * 9 / 5 + 32);
-  };
 
   const toFahrenheitHandler = () => {
     temperatureChange.temperatureConversionToggle(false);

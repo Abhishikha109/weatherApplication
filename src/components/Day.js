@@ -2,15 +2,32 @@ import {WeatherIcon} from '../utils/WeatherIcon';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import React, {useContext} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
-import {celsiusToFahrenheit} from '../utils/getDayFromDate';
+import {celsiusToFahrenheit, numberOfDays} from '../utils/getDayFromDate';
 
 const Day = (props) => {
   const weatherData = useContext(WeatherDataContext);
+  const allDays = weatherData.days;
+  const selectedDate = props.eachDay.datetime;
+  
+  const changeBackground = () => {
+    if(weatherData.sevenDaysDate.length > 0){
+      for(let i=0; i<numberOfDays;i++){
+        const dateData = weatherData.sevenDaysDate.at(0).at(i);
+        if (dateData.dateTime === selectedDate && dateData.selected){
+          return 'green';
+        }
+      } 
+    }
+    return '';
+  };
   
   const dailyDataHandler = () => {
-    const allDays = weatherData.days;
-    const selectedDate = props.eachDay.datetime;
-
+    if(weatherData.sevenDaysDate.length > 0)
+      for(let i=0; i<numberOfDays;i++){
+        const dateData = weatherData.sevenDaysDate.at(0).at(i);
+        dateData.selected = dateData.dateTime === selectedDate;
+      }
+    
     for(let day in allDays){
       const selectedDay = allDays.at(day - 0);
       if(selectedDate === selectedDay.datetime){
@@ -31,7 +48,13 @@ const Day = (props) => {
     }
   };
   
-  return (<table onClick={dailyDataHandler} style={{cursor: 'pointer', border: '5px solid blue', borderRadius: '20px', margin: '10px 10px 0px 10px', padding: '0 12px'}}>
+  return (<table onClick={dailyDataHandler} 
+    style={{cursor: 'pointer', 
+      border: '5px solid blue',
+      borderRadius: '20px', 
+      margin: '10px 10px 0px 10px', 
+      padding: '0 12px', 
+      backgroundColor: changeBackground()}}>
     <tbody>
       <tr><td>{props.weekDay}</td></tr>
       <tr><td>{WeatherIcon(props.eachDay.icon)}</td></tr>

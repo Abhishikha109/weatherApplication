@@ -35,6 +35,11 @@ const File = () => {
         .then((responseData) => {
           weatherData.setAllDays(responseData.days);
           weatherData.setCurrentDayCondition(responseData.currentConditions);
+          let datesSevenDays = [];
+          datesSevenDays.push((responseData.days.slice(0, 8).map((day) => {
+            return {dateTime: day.datetime, selected: false}
+          })));
+          weatherData.sevenDaysDateHandler(datesSevenDays);
           setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: {
             date:responseData.days.at(0).datetime,
             day: days.at(getCurrentDay(responseData.days.at(0).datetime)),

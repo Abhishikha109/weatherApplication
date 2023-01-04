@@ -33,11 +33,10 @@
 
 .box {
     position: absolute;
-    width: 86%;
+    width: 85%;
     height: 150px;
-    left: -2%;
-    padding-right: -50%;
-    bottom: 16%;
+    left: -10%;
+    bottom: 39%;
 }
 
 

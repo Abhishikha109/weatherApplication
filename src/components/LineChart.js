@@ -1,11 +1,7 @@
 import {GoogleCharts} from 'google-charts';
 import {useEffect} from 'react';
-import classes from './LineChart.module.css';
 
-//Load the charts library with a callback
 const drawChart = () => {
-
-  // Standard google charts functionality is available as GoogleCharts.api after load
   const data = GoogleCharts.api.visualization.arrayToDataTable([
     ['', ''],
     ['1am', 29],
@@ -29,12 +25,19 @@ const drawChart = () => {
       gridlines: {
         color: 'transparent'
       },
-      textPosition: 'none'
+      textPosition: 'none',
+      minValue: 0,
     },
     pointSize: 5,
     'tooltip' : {
       trigger: 'none'
-    }
+    },
+    series: {
+      0: { color: 'white' },
+    },
+    hAxis: {
+      textStyle:{color: 'white'}
+    },
   };
 
   let view = new google.visualization.DataView(data);
@@ -54,7 +57,7 @@ const LineChart = () => {
     GoogleCharts.load(drawChart);
   }, []);
   
-  return <div className={classes.box} id="chart1" style={{width: '115%', height: '300px'}}>
+  return <div id="chart1" style={{width: '115%', height: '300px'}}>
   </div>
 };
 
