@@ -12,7 +12,7 @@ const Day = (props) => {
   const changeBackground = () => {
     if(weatherData.sevenDaysDate.length > 0){
       for(let i=0; i<numberOfDays;i++){
-        const dateData = weatherData.sevenDaysDate.at(0).at(i);
+        const dateData = weatherData.sevenDaysDate.at(i);
         if (dateData.dateTime === selectedDate && dateData.selected){
           return 'green';
         }
@@ -24,24 +24,28 @@ const Day = (props) => {
   const dailyDataHandler = () => {
     if(weatherData.sevenDaysDate.length > 0)
       for(let i=0; i<numberOfDays;i++){
-        const dateData = weatherData.sevenDaysDate.at(0).at(i);
+        const dateData = weatherData.sevenDaysDate.at(i);
         dateData.selected = dateData.dateTime === selectedDate;
       }
-    
+
+    const prepareCurrentWeatherData = (selectedDay) => {
+      return {
+        date: selectedDay.datetime,
+        conditions: selectedDay.conditions,
+        day: props.weekDay,
+        icon: selectedDay.icon,
+        temp: selectedDay.temp,
+        humidity: selectedDay.humidity,
+        windspeed: selectedDay.windspeed,
+        sunrise: selectedDay.sunrise,
+        sunset: selectedDay.sunset,
+      };
+    }
+
     for(let day in allDays){
       const selectedDay = allDays.at(day - 0);
       if(selectedDate === selectedDay.datetime){
-        const currentWeatherData = {
-          date: selectedDay.datetime,
-          conditions: selectedDay.conditions,
-          day: props.weekDay,
-          icon: selectedDay.icon,
-          temp: selectedDay.temp,
-          humidity: selectedDay.humidity,
-          windspeed: selectedDay.windspeed,
-          sunrise: selectedDay.sunrise,
-          sunset: selectedDay.sunset,
-        }
+        const currentWeatherData = prepareCurrentWeatherData(selectedDay);
         weatherData.setCurrentDataSelected(currentWeatherData);
         break;
       }

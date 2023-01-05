@@ -27,6 +27,7 @@ const drawChart = () => {
       },
       textPosition: 'none',
       minValue: 0,
+      baselineColor: 'none',
     },
     pointSize: 5,
     'tooltip' : {
@@ -48,7 +49,7 @@ const drawChart = () => {
       role: 'annotation' }
   ]);
   
-  const pie_1_chart = new GoogleCharts.api.visualization.AreaChart(document.getElementById('chart1'));
+  const pie_1_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById('chart1'));
   pie_1_chart.draw(view, options);
 };
 

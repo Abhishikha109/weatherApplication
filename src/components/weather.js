@@ -76,11 +76,13 @@ const Weather = (props) => {
     </table>
     
     <table>
-      <tr>
-        <td className={classes.box}>
-          <LineChart/>
-        </td>
-      </tr>
+      <tbody>
+        <tr>
+          <td className={classes.box}>
+            <LineChart/>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </>
 };

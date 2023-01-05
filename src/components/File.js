@@ -34,12 +34,13 @@ const File = () => {
         .then(response => response.json())
         .then((responseData) => {
           weatherData.setAllDays(responseData.days);
-          weatherData.setCurrentDayCondition(responseData.currentConditions);
-          let datesSevenDays = [];
-          datesSevenDays.push((responseData.days.slice(0, 8).map((day) => {
+          
+          let datesSevenDays = ((responseData.days.slice(1, 8).map((day) => {
             return {dateTime: day.datetime, selected: false}
           })));
+          datesSevenDays.splice(0, 0, {dateTime: responseData.days.at(0).datetime, selected: true});
           weatherData.sevenDaysDateHandler(datesSevenDays);
+          
           setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: {
             date:responseData.days.at(0).datetime,
             day: days.at(getCurrentDay(responseData.days.at(0).datetime)),
