@@ -9,12 +9,12 @@ const Day = (props) => {
   const allDays = weatherData.days;
   const selectedDate = props.eachDay.datetime;
   
-  const changeBackground = () => {
+  const changeTableBackground = (color) => {
     if(weatherData.sevenDaysDate.length > 0){
       for(let i=0; i<numberOfDays;i++){
         const dateData = weatherData.sevenDaysDate.at(i);
         if (dateData.dateTime === selectedDate && dateData.selected){
-          return 'green';
+          return color;
         }
       } 
     }
@@ -58,7 +58,7 @@ const Day = (props) => {
       borderRadius: '20px', 
       margin: '10px 10px 0px 10px', 
       padding: '0 12px', 
-      backgroundColor: changeBackground()}}>
+      backgroundColor: changeTableBackground('green')}}>
     <tbody>
       <tr><td>{props.weekDay}</td></tr>
       <tr><td>{WeatherIcon(props.eachDay.icon)}</td></tr>

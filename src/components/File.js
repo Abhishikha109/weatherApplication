@@ -33,7 +33,7 @@ const File = () => {
       fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lucknow?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
         .then(response => response.json())
         .then((responseData) => {
-          weatherData.setAllDays(responseData.days);
+          weatherData.setAllDays(responseData.days.slice(0, 8));
           
           let datesSevenDays = ((responseData.days.slice(1, 8).map((day) => {
             return {dateTime: day.datetime, selected: false}
