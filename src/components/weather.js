@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import classes from './weather.module.css';
 import {WiHumidity} from '@react-icons/all-files/wi/WiHumidity';
 import {BsWind} from 'react-icons/bs';
@@ -13,7 +13,7 @@ import LineChart from './LineChart';
 import {celsiusToFahrenheit} from '../utils/getDayFromDate';
 
 const Weather = (props) => {
-  const [currentTime, setCurrentTime] = useState({hours: 0});
+  const [currentTime, setCurrentTime] = useState(0);
   const [bgGif, setBGGif] = useState(undefined); 
   const temperatureChange = useContext(WeatherDataContext);
   const selectedWeatherData = JSON.stringify(temperatureChange.currentDataSelected) === '{}' ? props.todayWeather : temperatureChange.currentDataSelected;
@@ -42,8 +42,20 @@ const Weather = (props) => {
     temperatureChange.temperatureConversionToggle(true);
   };
   
+  const temperatureHandler = () => {
+    console.log('temperature handler');
+  };
+  
+  const humidityHandler = () => {
+    console.log('humidity handler');
+  };
+  
+  const windSpeedHandler = () => {
+    console.log('windSpeed handler');
+  };
+  
   const timing = () => {
-    setCurrentTime({hours: selectedWeatherData.hours});
+    setCurrentTime(props.hours);
   };
   
   useEffect(() => {
@@ -66,11 +78,22 @@ const Weather = (props) => {
           <th>          {temperatureChange.temperatureChange? <h1>{selectedWeatherData.temp}
             <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.selectedTemperatureScale}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} className={classes.unSelectedTemperatureScale}/></h1> :
             <h1>{celsiusToFahrenheit(selectedWeatherData.temp)}
-              <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.unSelectedTemperatureScale}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} className={classes.selectedTemperatureScale}/></h1>}</th>
+              <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.unSelectedTemperatureScale}/> | 
+              <TbTemperatureFahrenheit onClick={toFahrenheitHandler} className={classes.selectedTemperatureScale}/></h1>}</th>
           <th>          <p><WiHumidity/>{selectedWeatherData.humidity} %</p>
             <p><BsWind/> {selectedWeatherData.windspeed} km/hr</p>
             <p><RiSunFill/> {selectedWeatherData.sunrise} am</p>
             <p><IoIosMoon/> {selectedWeatherData.sunset} pm</p></th>
+        </tr>
+      </tbody>
+    </table>
+    
+    <table>
+      <tbody>
+        <tr>
+          <td onClick={temperatureHandler} style={{cursor: 'pointer'}}>Temperature | </td>
+          <td onClick={humidityHandler} style={{cursor: 'pointer'}}>Humidity | </td>
+          <td onClick={windSpeedHandler} style={{cursor: 'pointer'}}>Wind Speed </td>
         </tr>
       </tbody>
     </table>

@@ -2,7 +2,7 @@ import {WeatherIcon} from '../utils/WeatherIcon';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import React, {useContext} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
-import {celsiusToFahrenheit, numberOfDays} from '../utils/getDayFromDate';
+import {celsiusToFahrenheit, getTemperatureAndHumidity, numberOfDays} from '../utils/getDayFromDate';
 import classes from './Day.module.css';
 
 const Day = (props) => {
@@ -48,6 +48,7 @@ const Day = (props) => {
       if(selectedDate === selectedDay.datetime){
         const currentWeatherData = prepareCurrentWeatherData(selectedDay);
         weatherData.setCurrentDataSelected(currentWeatherData);
+        weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay));
         break;
       }
     }

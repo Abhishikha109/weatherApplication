@@ -4,12 +4,13 @@ import {Days} from './Days';
 import {days, getCurrentDay} from '../utils/getDayFromDate';
 import WeatherDataContext from '../store/weather-data-context';
 import classes from './File.module.css';
+import {getTemperatureAndHumidity} from '../utils/getDayFromDate';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
-  const [weatherReport, setWeatherReport] = useState({address: '', days: [], todayCondition: {}});
+  const [weatherReport, setWeatherReport] = useState({address: '', days: [], todayCondition: {}, currentHour: 0});
   const weatherData = useContext(WeatherDataContext);
-
+  
   const sevenDaysDates = (responseData) => {
     let datesSevenDays = ((responseData.days.slice(1, 8).map((day) => {
       return {dateTime: day.datetime, selected: false}
@@ -20,16 +21,15 @@ const File = () => {
   
   const prepareTodayConditionData = (responseData) => {
     return {
-      date:responseData.days.at(0).datetime,
-      day: days.at(getCurrentDay(responseData.days.at(0).datetime)),
-      conditions:responseData.days.at(0).conditions,
-      icon:responseData.days.at(0).icon,
-      temp:responseData.days.at(0).temp,
-      humidity:responseData.days.at(0).humidity,
-      windspeed:responseData.days.at(0).windspeed,
-      sunrise:responseData.days.at(0).sunrise,
-      sunset:responseData.days.at(0).sunset,
-      hours:responseData.currentConditions.datetime.substr(0,3) - '0',
+      date:responseData.datetime,
+      day: days.at(getCurrentDay(responseData.datetime)),
+      conditions:responseData.conditions,
+      icon:responseData.icon,
+      temp:responseData.temp,
+      humidity:responseData.humidity,
+      windspeed:responseData.windspeed,
+      sunrise:responseData.sunrise,
+      sunset:responseData.sunset,
     }
   };
   
@@ -59,10 +59,13 @@ const File = () => {
           
           weatherData.setAllDays(responseData.days.slice(0, 8));
           weatherData.sevenDaysDateHandler(sevenDaysDates(responseData));
+          weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(responseData.days.at(0)));
           
           setWeatherReport({address: responseData.resolvedAddress, 
             days: [...responseData.days], 
-            todayCondition: prepareTodayConditionData(responseData)});
+            todayCondition: prepareTodayConditionData(responseData.days.at(0)),
+            currentHour: responseData.currentConditions.datetime.substr(0,2) - '0',
+          });
         })
         .catch(err => {
           console.error(err);
@@ -82,7 +85,7 @@ const File = () => {
     <table>
       <tbody>
         <tr>
-          <td><Weather cityAddress={weatherReport.address} todayWeather={weatherReport.todayCondition}/></td>
+          <td><Weather cityAddress={weatherReport.address} todayWeather={weatherReport.todayCondition} hours={weatherReport.currentHour}/></td>
         </tr>
         <tr>
           <td><Days days={weatherReport.days} /></td>

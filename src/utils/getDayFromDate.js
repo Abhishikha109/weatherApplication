@@ -17,3 +17,29 @@ export const getCurrentDay = (date) => {
   year -= (month < 3) ? 1 : 0;
   return (( year + year/4 - year/100 + year/400 + t[month-1] + day) % 7);
 };
+
+export const getTemperatureAndHumidity = (day) => {
+  const hours = day.hours;
+  const temperature = [['', '']];
+  const humidity = [['', '']];
+
+  const timeMeridian = ['1am', '3am', '5am', '7am', '9am', '11am',
+    '1pm', '3pm', '5pm', '7pm', '9pm', '11pm'];
+
+  for(let i=1; i<hours?.length; i=i+2){
+    let tempVar = [];
+    let humidityVar = [];
+    tempVar.push(timeMeridian.at(i/2).toString());
+    humidityVar.push(timeMeridian.at(i/2).toString());
+    
+    tempVar.push(hours.at(i).temp);
+    humidityVar.push(hours.at(i).humidity);
+
+    temperature.push(tempVar);
+    humidity.push(humidityVar);
+  }
+  for(let i=0; i<temperature.length; i++){
+    console.log(humidity.at(i));
+  }
+  return temperature;
+};
