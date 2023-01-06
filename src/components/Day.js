@@ -3,6 +3,7 @@ import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import React, {useContext} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
 import {celsiusToFahrenheit, numberOfDays} from '../utils/getDayFromDate';
+import classes from './Day.module.css';
 
 const Day = (props) => {
   const weatherData = useContext(WeatherDataContext);
@@ -52,19 +53,14 @@ const Day = (props) => {
     }
   };
   
-  return (<table onClick={dailyDataHandler} 
-    style={{cursor: 'pointer', 
-      border: '5px solid blue',
-      borderRadius: '20px', 
-      margin: '10px 10px 0px 10px', 
-      padding: '0 12px', 
-      backgroundColor: changeTableBackground('green')}}>
+  return (<table onClick={dailyDataHandler} className={classes.dayTable}
+    style={{backgroundColor: changeTableBackground('green')}}>
     <tbody>
       <tr><td>{props.weekDay}</td></tr>
       <tr><td>{WeatherIcon(props.eachDay.icon)}</td></tr>
       <tr>{weatherData.temperatureChange?
-        <td><h6>{props.eachDay.temp} <TbTemperatureCelsius style={{color: 'blue'}}/> | <TbTemperatureFahrenheit /></h6></td> :
-        <td><h6>{celsiusToFahrenheit(props.eachDay.temp)} <TbTemperatureCelsius /> | <TbTemperatureFahrenheit style={{color: 'blue'}}/></h6></td>}
+        <td><h6>{props.eachDay.temp} <TbTemperatureCelsius className={classes.selectedTemperatureScale}/> | <TbTemperatureFahrenheit /></h6></td> :
+        <td><h6>{celsiusToFahrenheit(props.eachDay.temp)} <TbTemperatureCelsius /> | <TbTemperatureFahrenheit className={classes.selectedTemperatureScale}/></h6></td>}
       </tr>
     </tbody>
   </table>);

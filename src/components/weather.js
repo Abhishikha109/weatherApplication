@@ -64,9 +64,9 @@ const Weather = (props) => {
         <tr>
           <th>{WeatherIcon(selectedWeatherData.icon)}</th>
           <th>          {temperatureChange.temperatureChange? <h1>{selectedWeatherData.temp}
-            <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer', color: 'blue'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer'}}/></h1> :
+            <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.selectedTemperatureScale}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} className={classes.unSelectedTemperatureScale}/></h1> :
             <h1>{celsiusToFahrenheit(selectedWeatherData.temp)}
-              <TbTemperatureCelsius onClick={toCelsiusHandler} style={{cursor: 'pointer'}}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} style={{cursor: 'pointer', color: 'blue'}}/></h1>}</th>
+              <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.unSelectedTemperatureScale}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} className={classes.selectedTemperatureScale}/></h1>}</th>
           <th>          <p><WiHumidity/>{selectedWeatherData.humidity} %</p>
             <p><BsWind/> {selectedWeatherData.windspeed} km/hr</p>
             <p><RiSunFill/> {selectedWeatherData.sunrise} am</p>

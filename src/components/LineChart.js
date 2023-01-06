@@ -1,4 +1,5 @@
 import {GoogleCharts} from 'google-charts';
+import classes from './LineChart.module.css';
 import {useEffect} from 'react';
 
 const drawChart = () => {
@@ -58,7 +59,7 @@ const LineChart = () => {
     GoogleCharts.load(drawChart);
   }, []);
   
-  return <div id="chart1" style={{width: '115%', height: '300px'}}>
+  return <div id="chart1" className={classes.LineChartBox}>
   </div>
 };
 
