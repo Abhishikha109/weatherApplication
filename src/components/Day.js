@@ -1,6 +1,6 @@
 import {WeatherIcon} from '../utils/WeatherIcon';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
 import {celsiusToFahrenheit, getTemperatureAndHumidity, numberOfDays} from '../utils/getDayFromDate';
 import classes from './Day.module.css';
@@ -48,11 +48,21 @@ const Day = (props) => {
       if(selectedDate === selectedDay.datetime){
         const currentWeatherData = prepareCurrentWeatherData(selectedDay);
         weatherData.setCurrentDataSelected(currentWeatherData);
-        weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay));
+        weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange));
         break;
       }
     }
   };
+  
+  useEffect(() => {
+    for(let day in allDays){
+      const selectedDay = allDays.at(day - 0);
+      if(selectedDate === selectedDay.datetime){
+        weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange));
+        break;
+      }
+    }
+  }, [weatherData.temperatureChange]);
   
   return (<table onClick={dailyDataHandler} className={classes.dayTable}
     style={{backgroundColor: changeTableBackground('green')}}>

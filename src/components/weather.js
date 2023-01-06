@@ -35,11 +35,11 @@ const Weather = (props) => {
   }
 
   const toFahrenheitHandler = () => {
-    temperatureChange.temperatureConversionToggle(false);
+    temperatureChange.temperatureConversionToggle(false); // if false, means here we have to convert temp from Celsius into Fahrenheit
   };
 
   const toCelsiusHandler = () => {
-    temperatureChange.temperatureConversionToggle(true);
+    temperatureChange.temperatureConversionToggle(true); // if true, means here we have to convert temp from Fahrenheit into Celsius
   };
   
   const temperatureHandler = () => {

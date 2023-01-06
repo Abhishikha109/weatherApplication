@@ -59,7 +59,8 @@ const File = () => {
           
           weatherData.setAllDays(responseData.days.slice(0, 8));
           weatherData.sevenDaysDateHandler(sevenDaysDates(responseData));
-          weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(responseData.days.at(0)));
+          weatherData.currentDaySelectedTemperatureHandler(
+            getTemperatureAndHumidity(responseData.days.at(0), weatherData.temperatureChange));
           
           setWeatherReport({address: responseData.resolvedAddress, 
             days: [...responseData.days], 
