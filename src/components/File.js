@@ -7,9 +7,32 @@ import classes from './File.module.css';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
-  const [weatherReport, setWeatherReport] = useState({address: '', days: [], currentConditions: {}});
+  const [weatherReport, setWeatherReport] = useState({address: '', days: [], todayCondition: {}});
   const weatherData = useContext(WeatherDataContext);
 
+  const sevenDaysDates = (responseData) => {
+    let datesSevenDays = ((responseData.days.slice(1, 8).map((day) => {
+      return {dateTime: day.datetime, selected: false}
+    })));
+    datesSevenDays.splice(0, 0, {dateTime: responseData.days.at(0).datetime, selected: true});
+    return datesSevenDays;
+  };
+  
+  const prepareTodayConditionData = (responseData) => {
+    return {
+      date:responseData.days.at(0).datetime,
+      day: days.at(getCurrentDay(responseData.days.at(0).datetime)),
+      conditions:responseData.days.at(0).conditions,
+      icon:responseData.days.at(0).icon,
+      temp:responseData.days.at(0).temp,
+      humidity:responseData.days.at(0).humidity,
+      windspeed:responseData.days.at(0).windspeed,
+      sunrise:responseData.days.at(0).sunrise,
+      sunset:responseData.days.at(0).sunset,
+      hours:responseData.currentConditions.datetime.substr(0,3) - '0',
+    }
+  };
+  
   const getLocation = (() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition((position) => {
@@ -33,26 +56,13 @@ const File = () => {
       fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lucknow?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
         .then(response => response.json())
         .then((responseData) => {
+          
           weatherData.setAllDays(responseData.days.slice(0, 8));
+          weatherData.sevenDaysDateHandler(sevenDaysDates(responseData));
           
-          let datesSevenDays = ((responseData.days.slice(1, 8).map((day) => {
-            return {dateTime: day.datetime, selected: false}
-          })));
-          datesSevenDays.splice(0, 0, {dateTime: responseData.days.at(0).datetime, selected: true});
-          weatherData.sevenDaysDateHandler(datesSevenDays);
-          
-          setWeatherReport({address: responseData.resolvedAddress, days: [...responseData.days], currentConditions: {
-            date:responseData.days.at(0).datetime,
-            day: days.at(getCurrentDay(responseData.days.at(0).datetime)),
-            conditions:responseData.days.at(0).conditions,
-            icon:responseData.days.at(0).icon,
-            temp:responseData.days.at(0).temp,
-            humidity:responseData.days.at(0).humidity,
-            windspeed:responseData.days.at(0).windspeed,
-            sunrise:responseData.days.at(0).sunrise,
-            sunset:responseData.days.at(0).sunset,
-            hours:responseData.currentConditions.datetime.substr(0,3) - '0',
-          }});
+          setWeatherReport({address: responseData.resolvedAddress, 
+            days: [...responseData.days], 
+            todayCondition: prepareTodayConditionData(responseData)});
         })
         .catch(err => {
           console.error(err);
@@ -72,7 +82,7 @@ const File = () => {
     <table>
       <tbody>
         <tr>
-          <td><Weather cityAddress={weatherReport.address} todayWeather={weatherReport.currentConditions}/></td>
+          <td><Weather cityAddress={weatherReport.address} todayWeather={weatherReport.todayCondition}/></td>
         </tr>
         <tr>
           <td><Days days={weatherReport.days} /></td>
