@@ -8,14 +8,14 @@ import {WeatherIcon} from '../utils/WeatherIcon';
 import {DayImageChange} from '../utils/DayImageChange';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
-import {weekDays, months, celsiusToFahrenheit} from '../utils/Date.utils';
+import {weekDays, months, celsiusToFahrenheit, getTemperatureAndHumidity} from '../utils/Date.utils';
 import LineChart from './LineChart';
 
 const Weather = (props) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [bgGif, setBGGif] = useState(undefined); 
-  const temperatureChange = useContext(WeatherDataContext);
-  const selectedWeatherData = JSON.stringify(temperatureChange.currentDataSelected) === '{}' ? props.todayWeather : temperatureChange.currentDataSelected;
+  const weatherDataContext = useContext(WeatherDataContext);
+  const selectedWeatherData = JSON.stringify(weatherDataContext.currentDataSelected) === '{}' ? props.todayWeather : weatherDataContext.currentDataSelected;
   const actualDay = selectedWeatherData.day;
   let month = '';
 
@@ -34,22 +34,41 @@ const Weather = (props) => {
   }
 
   const toFahrenheitHandler = () => {
-    temperatureChange.temperatureConversionToggle(false); // if false, means here we have to convert temp from Celsius into Fahrenheit
+    weatherDataContext.temperatureConversionToggle(false); // if false, means here we have to convert temp from Celsius into Fahrenheit
   };
 
   const toCelsiusHandler = () => {
-    temperatureChange.temperatureConversionToggle(true); // if true, means here we have to convert temp from Fahrenheit into Celsius
+    weatherDataContext.temperatureConversionToggle(true); // if true, means here we have to convert temp from Fahrenheit into Celsius
   };
   
   const temperatureHandler = () => {
-    console.log('temperature handler');
+    weatherDataContext.currentParameterSelectedHandler('temperature');
+    const allDays = weatherDataContext.days;
+
+    for(let day in allDays){
+      const selectedDay = allDays.at(day - 0);
+      if(selectedWeatherData.date === selectedDay.datetime){
+        weatherDataContext.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherDataContext.temperatureChange, 'temperature'));
+        break;
+      }
+    }
   };
   
   const humidityHandler = () => {
-    console.log('humidity handler');
+    weatherDataContext.currentParameterSelectedHandler('humidity');
+    const allDays = weatherDataContext.days;
+
+    for(let day in allDays){
+      const selectedDay = allDays.at(day - 0);
+      if(selectedWeatherData.date === selectedDay.datetime){
+        weatherDataContext.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, false, 'humidity'));
+        break;
+      }
+    }
   };
   
   const windSpeedHandler = () => {
+    weatherDataContext.currentParameterSelectedHandler('windSpeed');
     console.log('windSpeed handler');
   };
   
@@ -74,7 +93,7 @@ const Weather = (props) => {
       <tbody>
         <tr>
           <th>{WeatherIcon(selectedWeatherData.icon)}</th>
-          <th>          {temperatureChange.temperatureChange? <h1>{selectedWeatherData.temp}
+          <th>          {weatherDataContext.temperatureChange? <h1>{selectedWeatherData.temp}
             <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.selectedTemperatureScale}/> | <TbTemperatureFahrenheit onClick={toFahrenheitHandler} className={classes.unSelectedTemperatureScale}/></h1> :
             <h1>{celsiusToFahrenheit(selectedWeatherData.temp)}
               <TbTemperatureCelsius onClick={toCelsiusHandler} className={classes.unSelectedTemperatureScale}/> | 

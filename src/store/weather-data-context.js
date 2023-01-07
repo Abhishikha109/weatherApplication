@@ -11,6 +11,8 @@ const WeatherDataContext = createContext({
   sevenDaysDateHandler: () => {},
   currentDaySelectedTemperature: [],
   currentDaySelectedTemperatureHandler: () => {},
+  currentParameterSelected: 'temperature',
+  currentParameterSelectedHandler: () => {},
 });
 
 export const WeatherDataContextProvider = (props) => {
@@ -19,7 +21,12 @@ export const WeatherDataContextProvider = (props) => {
   const [currentData, setCurrentData] = useState({});
   const [sevenDaysDate, setSevenDayDate] = useState([]);
   const [selectedDayTemperature, setSelectedDayTemperature] = useState([]);
+  const [parameterSelected, setParameterSelected] = useState('temperature');
 
+  const parameterSelectedHandler = (selectedTab) => {
+    setParameterSelected(selectedTab);
+  };
+  
   const temperatureHandler = (temperature) => {
     setSelectedDayTemperature(temperature);
   };
@@ -51,6 +58,8 @@ export const WeatherDataContextProvider = (props) => {
     sevenDaysDateHandler: sevenDaysDateHandler,
     currentDaySelectedTemperature: selectedDayTemperature,
     currentDaySelectedTemperatureHandler: temperatureHandler,
+    currentParameterSelected: parameterSelected,
+    currentParameterSelectedHandler: parameterSelectedHandler,
   }
 
   return (

@@ -18,7 +18,7 @@ export const getCurrentDay = (date) => {
   return (( year + year/4 - year/100 + year/400 + t[month-1] + day) % 7);
 };
 
-export const getTemperatureAndHumidity = (day, isCelsius) => {
+export const getTemperatureAndHumidity = (day, isCelsius, type) => {
   const hours = day.hours;
   const temperature = [['', '']];
   const humidity = [['', '']];
@@ -43,5 +43,5 @@ export const getTemperatureAndHumidity = (day, isCelsius) => {
     humidity.push(humidityVar);
   }
  
-  return temperature;
+  return type === 'humidity' ? humidity: temperature;
 };
