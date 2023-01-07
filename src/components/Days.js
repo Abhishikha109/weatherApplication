@@ -1,6 +1,5 @@
 import Day from './Day';
-import {days, getCurrentDay} from '../utils/getDayFromDate';
-import {numberOfDays} from '../utils/getDayFromDate';
+import {days, getCurrentDay, numberOfDays} from '../utils/Date.utils';
 
 export const Days = (props) => {
   const index = getCurrentDay(props.days?.at(0)?.datetime);

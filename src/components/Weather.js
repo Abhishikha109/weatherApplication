@@ -1,5 +1,5 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import classes from './weather.module.css';
+import React, {useContext, useEffect, useState} from 'react';
+import classes from './Weather.module.css';
 import {WiHumidity} from '@react-icons/all-files/wi/WiHumidity';
 import {BsWind} from 'react-icons/bs';
 import {RiSunFill} from '@react-icons/all-files/ri/RiSunFill';
@@ -8,9 +8,8 @@ import {WeatherIcon} from '../utils/WeatherIcon';
 import {DayImageChange} from '../utils/DayImageChange';
 import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
-import {weekDays, months} from '../utils/getDayFromDate';
+import {weekDays, months, celsiusToFahrenheit} from '../utils/Date.utils';
 import LineChart from './LineChart';
-import {celsiusToFahrenheit} from '../utils/getDayFromDate';
 
 const Weather = (props) => {
   const [currentTime, setCurrentTime] = useState(0);

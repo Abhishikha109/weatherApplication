@@ -1,10 +1,9 @@
 import {useContext, useEffect, useState} from 'react';
-import Weather from './weather';
+import Weather from './Weather';
 import {Days} from './Days';
-import {days, getCurrentDay} from '../utils/getDayFromDate';
+import {days, getCurrentDay, getTemperatureAndHumidity} from '../utils/Date.utils';
 import WeatherDataContext from '../store/weather-data-context';
 import classes from './File.module.css';
-import {getTemperatureAndHumidity} from '../utils/getDayFromDate';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
