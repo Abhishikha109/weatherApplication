@@ -63,6 +63,8 @@ const File = () => {
             weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(responseData.days.at(0), weatherData.temperatureChange, 'temperature'));
           else if(weatherData.currentParameterSelected === 'humidity')
             weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(responseData.days.at(0), weatherData.temperatureChange, 'humidity'));
+          else if(weatherData.currentParameterSelected === 'windSpeed')
+            weatherData.currentDaySelectedWindSpeedHandler(getTemperatureAndHumidity(responseData.days.at(0), weatherData.temperatureChange, 'windSpeed'));
           
           setWeatherReport({address: responseData.resolvedAddress, 
             days: [...responseData.days], 

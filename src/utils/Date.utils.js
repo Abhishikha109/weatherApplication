@@ -50,12 +50,6 @@ export const getTemperatureAndHumidity = (day, isCelsius, type) => {
     humidity.push(humidityVar);
     windSpeed.push(windSpeedVar);
   }
-  
-  if(type === 'windSpeed'){
-    for(let i=0; i< windSpeed.length; i++){
-      console.log(windSpeed.at(i));
-    }
-  }
  
   return type === 'humidity' ? humidity:
     type === 'temperature'? temperature: windSpeed;
