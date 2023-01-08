@@ -19,3 +19,15 @@
     display: table;
     clear: both;
 }
+
+.textFamily {
+    font-family: "Arial";
+}
+
+.textSpeed {
+    font-size: 10px;
+}
+
+.textTime {
+    font-size: 15px;
+}

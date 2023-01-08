@@ -7,35 +7,34 @@ const LineChart = () => {
   const weatherContext = useContext(WeatherDataContext);
   const [chartData, setChartData] = useState([]);
 
+  const options = {
+    backgroundColor: 'transparent',
+    legend: 'none',
+    vAxis: {
+      gridlines: {
+        color: 'transparent'
+      },
+      textPosition: 'none',
+      minValue: 0,
+      baselineColor: 'none',
+    },
+    pointSize: 5,
+    'tooltip' : {
+      trigger: 'none'
+    },
+    series: {
+      0: { color: 'white' },
+    },
+    hAxis: {
+      textStyle:{color: 'white'}
+    },
+  };
+  
   const drawChart = () => {
-    let abc = [];
-    abc.push(chartData);
     const data = GoogleCharts.api.visualization.arrayToDataTable(chartData);
 
-    const options = {
-      backgroundColor: 'transparent',
-      legend: 'none',
-      vAxis: {
-        gridlines: {
-          color: 'transparent'
-        },
-        textPosition: 'none',
-        minValue: 0,
-        baselineColor: 'none',
-      },
-      pointSize: 5,
-      'tooltip' : {
-        trigger: 'none'
-      },
-      series: {
-        0: { color: 'white' },
-      },
-      hAxis: {
-        textStyle:{color: 'white'}
-      },
-    };
-
     let view = new google.visualization.DataView(data);
+    
     view.setColumns([0, 1,
       { calc: 'stringify',
         sourceColumn: 1,
@@ -43,8 +42,8 @@ const LineChart = () => {
         role: 'annotation' }
     ]);
 
-    const pie_1_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById('chart1'));
-    pie_1_chart.draw(view, options);
+    const line_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById('lineChart'));
+    line_chart.draw(view, options);
   };
   
   useEffect(() => {
@@ -56,7 +55,7 @@ const LineChart = () => {
       GoogleCharts.load(drawChart);
   }, [chartData]);
   
-  return <div id="chart1" className={classes.LineChartBox}>
+  return <div id="lineChart" className={classes.LineChartBox}>
   </div>
 };
 

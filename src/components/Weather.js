@@ -122,8 +122,10 @@ const Weather = (props) => {
           <td className={classes.box}>
             {(weatherDataContext.currentParameterSelected === 'temperature' ||
                 weatherDataContext.currentParameterSelected === 'humidity') && <LineChart/>}
-            {weatherDataContext.currentParameterSelected === 'windSpeed' &&
-            <WindSpeed/>}
+            {weatherDataContext.currentParameterSelected === 'windSpeed'
+            &&
+            <WindSpeed/>
+            }
           </td>
         </tr>
       </tbody>

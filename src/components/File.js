@@ -52,7 +52,7 @@ const File = () => {
   
   const getData = () => {
     if(currentCity){
-      fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lucknow?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json')
+      fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${currentCity}?unitGroup=metric&key=H4TWQN62342CA78ESWC9JJW6A&contentType=json`)
         .then(response => response.json())
         .then((responseData) => {
           
