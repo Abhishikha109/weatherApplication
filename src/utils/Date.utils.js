@@ -22,6 +22,7 @@ export const getTemperatureAndHumidity = (day, isCelsius, type) => {
   const hours = day.hours;
   const temperature = [['', '']];
   const humidity = [['', '']];
+  const windSpeed = [];
 
   const timeMeridian = ['1am', '3am', '5am', '7am', '9am', '11am',
     '1pm', '3pm', '5pm', '7pm', '9pm', '11pm'];
@@ -29,8 +30,11 @@ export const getTemperatureAndHumidity = (day, isCelsius, type) => {
   for(let i=1; i<hours?.length; i=i+2){
     let tempVar = [];
     let humidityVar = [];
+    let windSpeedVar = [];
+    
     tempVar.push(timeMeridian.at(i/2).toString());
     humidityVar.push(timeMeridian.at(i/2).toString());
+    windSpeedVar.push(timeMeridian.at(i/2).toString());
     
     if(!isCelsius)
       tempVar.push(celsiusToFahrenheit(hours.at(i).temp));
@@ -38,10 +42,21 @@ export const getTemperatureAndHumidity = (day, isCelsius, type) => {
       tempVar.push(hours.at(i).temp);
     
     humidityVar.push(hours.at(i).humidity);
+    
+    windSpeedVar.push(hours.at(i).windspeed);
+    windSpeedVar.push(hours.at(i).winddir);
 
     temperature.push(tempVar);
     humidity.push(humidityVar);
+    windSpeed.push(windSpeedVar);
+  }
+  
+  if(type === 'windSpeed'){
+    for(let i=0; i< windSpeed.length; i++){
+      console.log(windSpeed.at(i));
+    }
   }
  
-  return type === 'humidity' ? humidity: temperature;
+  return type === 'humidity' ? humidity:
+    type === 'temperature'? temperature: windSpeed;
 };

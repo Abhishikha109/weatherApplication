@@ -53,6 +53,8 @@ const Day = (props) => {
           weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange, 'temperature'));
         else if(weatherData.currentParameterSelected === 'humidity')
           weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange, 'humidity'));
+        else if(weatherData.currentParameterSelected === 'windSpeed')
+          weatherData.currentDaySelectedWindSpeedHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange, 'windSpeed'));
         break;
       }
     }
@@ -64,8 +66,6 @@ const Day = (props) => {
       if(selectedDate === selectedDay.datetime){
         if(weatherData.currentParameterSelected === 'temperature')
           weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange, 'temperature'));
-        else if(weatherData.currentParameterSelected === 'humidity')
-          weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(selectedDay, weatherData.temperatureChange, 'humidity'));
         break;
       }
     }

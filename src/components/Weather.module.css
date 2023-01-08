@@ -55,3 +55,16 @@
 .unSelectedTemperatureScale {
     cursor: pointer;
 }
+
+.selectedParameter {
+    color: blueviolet;
+    padding: 8px;
+}
+
+.unselectedParameter {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.parameterData{
+}

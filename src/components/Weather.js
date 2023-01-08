@@ -10,6 +10,7 @@ import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
 import {weekDays, months, celsiusToFahrenheit, getTemperatureAndHumidity} from '../utils/Date.utils';
 import LineChart from './LineChart';
+import {WIND} from '../constants/Urls';
 
 const Weather = (props) => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -69,7 +70,16 @@ const Weather = (props) => {
   
   const windSpeedHandler = () => {
     weatherDataContext.currentParameterSelectedHandler('windSpeed');
-    console.log('windSpeed handler');
+    
+    const allDays = weatherDataContext.days;
+
+    for(let day in allDays){
+      const selectedDay = allDays.at(day - 0);
+      if(selectedWeatherData.date === selectedDay.datetime){
+        weatherDataContext.currentDaySelectedWindSpeedHandler(getTemperatureAndHumidity(selectedDay, false, 'windSpeed'));
+        break;
+      }
+    }
   };
   
   const timing = () => {
@@ -109,9 +119,15 @@ const Weather = (props) => {
     <table>
       <tbody>
         <tr>
-          <td onClick={temperatureHandler} style={{cursor: 'pointer'}}>Temperature | </td>
-          <td onClick={humidityHandler} style={{cursor: 'pointer'}}>Humidity | </td>
-          <td onClick={windSpeedHandler} style={{cursor: 'pointer'}}>Wind Speed </td>
+          <td onClick={temperatureHandler} 
+            className={`${weatherDataContext.currentParameterSelected === 'temperature'?
+              classes.selectedParameter : classes.unselectedParameter}`}>Temperature </td>
+          <td onClick={humidityHandler} 
+            className={`${weatherDataContext.currentParameterSelected === 'humidity'?
+              classes.selectedParameter : classes.unselectedParameter}`}>Humidity </td>
+          <td onClick={windSpeedHandler} 
+            className={`${weatherDataContext.currentParameterSelected === 'windSpeed'?
+              classes.selectedParameter : classes.unselectedParameter}`}>Wind Speed </td>
         </tr>
       </tbody>
     </table>
@@ -120,7 +136,10 @@ const Weather = (props) => {
       <tbody>
         <tr>
           <td className={classes.box}>
-            <LineChart/>
+            {(weatherDataContext.currentParameterSelected === 'temperature' ||
+                weatherDataContext.currentParameterSelected === 'humidity') && <LineChart/>}
+            {weatherDataContext.currentParameterSelected === 'windSpeed' &&
+            <img src={WIND} alt="partly-cloudy-day"/>}
           </td>
         </tr>
       </tbody>

@@ -13,6 +13,8 @@ const WeatherDataContext = createContext({
   currentDaySelectedTemperatureHandler: () => {},
   currentParameterSelected: 'temperature',
   currentParameterSelectedHandler: () => {},
+  currentDaySelectedWindSpeed: [],
+  currentDaySelectedWindSpeedHandler: () => {},
 });
 
 export const WeatherDataContextProvider = (props) => {
@@ -22,6 +24,11 @@ export const WeatherDataContextProvider = (props) => {
   const [sevenDaysDate, setSevenDayDate] = useState([]);
   const [selectedDayTemperature, setSelectedDayTemperature] = useState([]);
   const [parameterSelected, setParameterSelected] = useState('temperature');
+  const [selectedDayWindSpeed, setSelectedDayWindSpeed] = useState([]);
+  
+  const parameterWindSelectedHandler = (selectedTabWindSpeed) => {
+    setSelectedDayWindSpeed(selectedTabWindSpeed);
+  }
 
   const parameterSelectedHandler = (selectedTab) => {
     setParameterSelected(selectedTab);
@@ -60,6 +67,8 @@ export const WeatherDataContextProvider = (props) => {
     currentDaySelectedTemperatureHandler: temperatureHandler,
     currentParameterSelected: parameterSelected,
     currentParameterSelectedHandler: parameterSelectedHandler,
+    currentDaySelectedWindSpeed: selectedDayWindSpeed,
+    currentDaySelectedWindSpeedHandler: parameterWindSelectedHandler,
   }
 
   return (
