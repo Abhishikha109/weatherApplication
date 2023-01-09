@@ -13,7 +13,6 @@ import LineChart from './LineChart';
 import WindSpeed from './WindSpeed';
 
 const Weather = (props) => {
-  const [currentTime, setCurrentTime] = useState(0);
   const [bgGif, setBGGif] = useState(undefined); 
   const weatherDataContext = useContext(WeatherDataContext);
   const selectedWeatherData = JSON.stringify(weatherDataContext.currentDataSelected) === '{}' ? props.todayWeather : weatherDataContext.currentDataSelected;
@@ -82,14 +81,9 @@ const Weather = (props) => {
     }
   };
   
-  const timing = () => {
-    setCurrentTime(props.hours);
-  };
-  
   useEffect(() => {
-    timing();
-    setBGGif(DayImageChange(currentTime.hours));
-  }, [currentTime.hours]);
+    setBGGif(DayImageChange(props.hours));
+  }, [props.hours]);
   
   return <>
     {bgGif}
