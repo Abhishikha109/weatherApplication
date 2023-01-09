@@ -1,6 +1,6 @@
 .windSpeedTable {
     position: absolute;
-    bottom: -200%;
+    bottom: -70%;
     left: 17%;
 }
 
@@ -10,7 +10,7 @@
     float: left;
     width: 33.33%;
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+    height: 100px; /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
