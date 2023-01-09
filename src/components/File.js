@@ -4,9 +4,11 @@ import {Days} from './Days';
 import {days, getCurrentDay, getTemperatureAndHumidity} from '../utils/Date.utils';
 import WeatherDataContext from '../store/weather-data-context';
 import classes from './File.module.css';
+import {CircleLoader} from 'react-spinners';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [weatherReport, setWeatherReport] = useState({address: '', days: [], todayCondition: {}, currentHour: 0});
   const weatherData = useContext(WeatherDataContext);
   
@@ -79,24 +81,32 @@ const File = () => {
   };
   
   useEffect(() => {
+    setIsLoading(true);
     getLocation();
   }, []);
   
   useEffect(() => {
     getData();
-  }, [currentCity]);
+    currentCity && weatherReport.address && setIsLoading(false);
+  }, [currentCity, weatherReport.address]);
   
   return <div className={classes.container}>
-    <table>
-      <tbody>
-        <tr>
-          <td><Weather cityAddress={weatherReport.address} todayWeather={weatherReport.todayCondition} hours={weatherReport.currentHour}/></td>
-        </tr>
-        <tr>
-          <td><Days days={weatherReport.days} /></td>
-        </tr>
-      </tbody>
-    </table>
+    {isLoading ?
+      <CircleLoader 
+        color="#36d7b7"
+        size={250}
+      /> :
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Weather cityAddress={weatherReport.address} todayWeather={weatherReport.todayCondition} hours={weatherReport.currentHour}/></td>
+          </tr>
+          <tr>
+            <td><Days days={weatherReport.days} /></td>
+          </tr>
+        </tbody>
+      </table>}
   </div>
 };
 

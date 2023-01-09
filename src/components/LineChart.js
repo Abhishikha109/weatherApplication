@@ -31,19 +31,21 @@ const LineChart = () => {
   };
   
   const drawChart = () => {
-    const data = GoogleCharts.api.visualization.arrayToDataTable(chartData);
+    if(chartData.length > 0) {
+      const data = GoogleCharts.api.visualization.arrayToDataTable(chartData);
 
-    let view = new google.visualization.DataView(data);
-    
-    view.setColumns([0, 1,
-      { calc: 'stringify',
-        sourceColumn: 1,
-        type: 'string',
-        role: 'annotation' }
-    ]);
+      let view = new google.visualization.DataView(data);
 
-    const line_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById('lineChart'));
-    line_chart.draw(view, options);
+      view.setColumns([0, 1,
+        { calc: 'stringify',
+          sourceColumn: 1,
+          type: 'string',
+          role: 'annotation' }
+      ]);
+
+      const line_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById('lineChart'));
+      line_chart.draw(view, options); 
+    }
   };
   
   useEffect(() => {
