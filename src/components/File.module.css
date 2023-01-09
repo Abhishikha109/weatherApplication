@@ -6,3 +6,12 @@
     align-items: center;
     margin: 5% 10% 10% 24%;
 }
+
+.loader {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    height: 70vh;
+}

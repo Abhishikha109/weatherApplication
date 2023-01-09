@@ -92,10 +92,12 @@ const File = () => {
   
   return <div className={classes.container}>
     {isLoading ?
-      <CircleLoader 
-        color="#36d7b7"
-        size={250}
-      /> :
+      <div className={classes.loader}>
+        <CircleLoader
+          color="#36d7b7"
+          size={250}
+        />
+      </div> :
       <table>
         <tbody>
           <tr>
