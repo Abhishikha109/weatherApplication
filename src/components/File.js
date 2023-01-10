@@ -5,12 +5,16 @@ import {days, getCurrentDay, getTemperatureAndHumidity} from '../utils/Date.util
 import WeatherDataContext from '../store/weather-data-context';
 import classes from './File.module.css';
 import {CircleLoader} from 'react-spinners';
+import alanBtn from '@alan-ai/alan-sdk-web';
+
+const alanKey = '284a97e3deb75f140a22b1a6f9cce78d2e956eca572e1d8b807a3e2338fdd0dc/stage';
 
 const File = () => {
   const [currentCity, setCurrentCity] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [weatherReport, setWeatherReport] = useState({address: '', days: [], todayCondition: {}, currentHour: 0});
   const weatherData = useContext(WeatherDataContext);
+  const [alanNewCity, setAlanNewCity] = useState(null);
   
   const sevenDaysDates = (responseData) => {
     let datesSevenDays = ((responseData.days.slice(1, 8).map((day) => {
@@ -44,6 +48,7 @@ const File = () => {
           .then((response) =>
             response.json()
           ).then((data) => {
+            console.log('+++++++++++++++++++', alanNewCity);
             setCurrentCity(data.address.city);
           }).catch(err => {
             console.error(err);
@@ -61,6 +66,8 @@ const File = () => {
           weatherData.setAllDays(responseData.days.slice(0, 8));
           weatherData.sevenDaysDateHandler(sevenDaysDates(responseData));
 
+          console.log('------------------', alanNewCity);
+          
           if(weatherData.currentParameterSelected === 'temperature')
             weatherData.currentDaySelectedTemperatureHandler(getTemperatureAndHumidity(responseData.days.at(0), weatherData.temperatureChange, 'temperature'));
           else if(weatherData.currentParameterSelected === 'humidity')
@@ -83,6 +90,18 @@ const File = () => {
   useEffect(() => {
     setIsLoading(true);
     getLocation();
+  }, []);
+
+  useEffect(() => {
+    alanBtn({
+      key: alanKey,
+      onCommand: ({command, city}) => {
+        if(command === 'newCity'){
+          console.log('***********',city);
+          setCurrentCity(city);
+        }
+      }
+    });
   }, []);
   
   useEffect(() => {

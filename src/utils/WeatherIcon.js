@@ -1,4 +1,4 @@
-const {CLOUDY_IMG, CLEAR_DAY_IMG, CLEAR_NIGHT_IMG, PARTLY_CLOUDY_NIGHT, PARTLY_CLOUDY_DAY, RAIN} = require('../constants/Urls');
+const {CLOUDY_IMG, CLEAR_DAY_IMG, CLEAR_NIGHT_IMG, PARTLY_CLOUDY_NIGHT, PARTLY_CLOUDY_DAY, RAIN, SNOW} = require('../constants/Urls');
 
 export const WeatherIcon = (iconName) => {
   let image;
@@ -14,6 +14,8 @@ export const WeatherIcon = (iconName) => {
   case 'partly-cloudy-day': image = <img src={PARTLY_CLOUDY_DAY} alt="partly-cloudy-day"/>
     break;
   case 'rain': image = <img src={RAIN} alt="rain"/>
+    break;
+  case 'snow': image = <img src={SNOW} alt="snow"/>
     break;
   }
   return image;
