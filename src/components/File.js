@@ -44,7 +44,7 @@ const File = () => {
         const latitude = (position.coords.latitude);
         const longitude = (position.coords.longitude);
 
-        fetch(`http://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
           .then((response) =>
             response.json()
           ).then((data) => {
