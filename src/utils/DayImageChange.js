@@ -1,5 +1,5 @@
-import Image from '../ui/Image';
 import {AFTERNOON_GIF, EVENING_GIF, MORNING_GIF, NIGHT_GIF} from '../constants/Urls';
+import Image from '../ui/Image';
 import React from 'react';
 
 export const DayImageChange = (hours) => {

@@ -1,9 +1,9 @@
-import {WeatherIcon} from '../utils/WeatherIcon';
-import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
-import React, {useContext, useEffect} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
 import {celsiusToFahrenheit, getTemperatureAndHumidity, numberOfDays} from '../utils/Date.utils';
+import {WeatherIcon} from '../utils/WeatherIcon';
 import classes from './Day.module.css';
+import React, {useContext, useEffect} from 'react';
+import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 
 const Day = (props) => {
   const weatherData = useContext(WeatherDataContext);

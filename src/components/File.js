@@ -1,11 +1,11 @@
-import {useContext, useEffect, useState} from 'react';
-import Weather from './Weather';
-import {Days} from './Days';
-import {days, getCurrentDay, getTemperatureAndHumidity} from '../utils/Date.utils';
 import WeatherDataContext from '../store/weather-data-context';
+import {days, getCurrentDay, getTemperatureAndHumidity} from '../utils/Date.utils';
+import {Days} from './Days';
 import classes from './File.module.css';
-import {CircleLoader} from 'react-spinners';
+import Weather from './Weather';
 import alanBtn from '@alan-ai/alan-sdk-web';
+import {useContext, useEffect, useState} from 'react';
+import {CircleLoader} from 'react-spinners';
 
 const alanKey = '284a97e3deb75f140a22b1a6f9cce78d2e956eca572e1d8b807a3e2338fdd0dc/stage';
 

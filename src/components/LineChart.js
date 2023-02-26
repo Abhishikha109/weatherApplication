@@ -1,7 +1,7 @@
-import {GoogleCharts} from 'google-charts';
-import classes from './LineChart.module.css';
-import {useContext, useEffect, useState} from 'react';
 import WeatherDataContext from '../store/weather-data-context';
+import classes from './LineChart.module.css';
+import {GoogleCharts} from 'google-charts';
+import {useContext, useEffect, useState} from 'react';
 
 const LineChart = () => {
   const weatherContext = useContext(WeatherDataContext);

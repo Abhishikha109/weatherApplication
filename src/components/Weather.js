@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
-import classes from './Weather.module.css';
-import {WiHumidity} from '@react-icons/all-files/wi/WiHumidity';
-import {BsWind} from 'react-icons/bs';
-import {RiSunFill} from '@react-icons/all-files/ri/RiSunFill';
-import {IoIosMoon} from '@react-icons/all-files/io/IoIosMoon';
-import {WeatherIcon} from '../utils/WeatherIcon';
-import {DayImageChange} from '../utils/DayImageChange';
-import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 import WeatherDataContext from '../store/weather-data-context';
-import {weekDays, months, celsiusToFahrenheit, getTemperatureAndHumidity} from '../utils/Date.utils';
+import {celsiusToFahrenheit, getTemperatureAndHumidity, months, weekDays} from '../utils/Date.utils';
+import {DayImageChange} from '../utils/DayImageChange';
+import {WeatherIcon} from '../utils/WeatherIcon';
 import LineChart from './LineChart';
+import classes from './Weather.module.css';
 import WindSpeed from './WindSpeed';
+import {IoIosMoon} from '@react-icons/all-files/io/IoIosMoon';
+import {RiSunFill} from '@react-icons/all-files/ri/RiSunFill';
+import {WiHumidity} from '@react-icons/all-files/wi/WiHumidity';
+import React, {useContext, useEffect, useState} from 'react';
+import {BsWind} from 'react-icons/bs';
+import {TbTemperatureCelsius, TbTemperatureFahrenheit} from 'react-icons/tb';
 
 const Weather = (props) => {
   const [bgGif, setBGGif] = useState(undefined); 

@@ -1,7 +1,7 @@
-import {useContext} from 'react';
+import {WIND} from '../constants/Urls';
 import WeatherDataContext from '../store/weather-data-context';
 import classes from './WindSpeed.module.css';
-import {WIND} from '../constants/Urls';
+import {useContext} from 'react';
 
 const WindSpeed = () => {
   const weatherDataContext = useContext(WeatherDataContext);
